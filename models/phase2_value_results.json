@@ -1,0 +1,139 @@
+{
+  "test_window": {
+    "start": "2023-11-10 00:20:00",
+    "end": "2023-12-31 23:50:00",
+    "steps": 7402,
+    "hours": 1233.6666666666667,
+    "weeks": 7.285714285714286
+  },
+  "baseline": {
+    "events": 132,
+    "degree_min": 2721.160991764003,
+    "pump": 7402.0
+  },
+  "reactive": {
+    "events": 21,
+    "avoided_%": 84.0909090909091,
+    "degree_min": 210.29320405447726,
+    "dm_reduction_%": 92.27193081589216,
+    "pump_overhead_%": 39.066430103350555
+  },
+  "forecast_ladder": [
+    {
+      "name": "Oracle",
+      "MAE": 0.0,
+      "events": 19,
+      "events_avoided_%": 85.61,
+      "degree_min_reduction_%": 95.77,
+      "pump_overhead_%": 39.07
+    },
+    {
+      "name": "Oracle + \u03c3=0.10",
+      "MAE": 0.0795,
+      "events": 19,
+      "events_avoided_%": 85.61,
+      "degree_min_reduction_%": 95.85,
+      "pump_overhead_%": 38.82
+    },
+    {
+      "name": "Oracle + \u03c3=0.25",
+      "MAE": 0.2003,
+      "events": 19,
+      "events_avoided_%": 85.61,
+      "degree_min_reduction_%": 95.8,
+      "pump_overhead_%": 39.61
+    },
+    {
+      "name": "Oracle + \u03c3=0.50",
+      "MAE": 0.4012,
+      "events": 16,
+      "events_avoided_%": 87.88,
+      "degree_min_reduction_%": 95.57,
+      "pump_overhead_%": 40.83
+    },
+    {
+      "name": "Oracle + \u03c3=0.75",
+      "MAE": 0.5998,
+      "events": 16,
+      "events_avoided_%": 87.88,
+      "degree_min_reduction_%": 96.18,
+      "pump_overhead_%": 41.04
+    },
+    {
+      "name": "Oracle + \u03c3=1.00",
+      "MAE": 0.7993,
+      "events": 18,
+      "events_avoided_%": 86.36,
+      "degree_min_reduction_%": 95.59,
+      "pump_overhead_%": 41.74
+    },
+    {
+      "name": "Persistence",
+      "MAE": 0.8218,
+      "events": 21,
+      "events_avoided_%": 84.09,
+      "degree_min_reduction_%": 92.27,
+      "pump_overhead_%": 39.07
+    },
+    {
+      "name": "ML Forecast",
+      "MAE": 0.831,
+      "events": 30,
+      "events_avoided_%": 77.27,
+      "degree_min_reduction_%": 90.22,
+      "pump_overhead_%": 36.74
+    },
+    {
+      "name": "Oracle + \u03c3=1.50",
+      "MAE": 1.1985,
+      "events": 20,
+      "events_avoided_%": 84.85,
+      "degree_min_reduction_%": 94.9,
+      "pump_overhead_%": 41.85
+    },
+    {
+      "name": "Oracle + \u03c3=2.00",
+      "MAE": 1.5785,
+      "events": 14,
+      "events_avoided_%": 89.39,
+      "degree_min_reduction_%": 96.55,
+      "pump_overhead_%": 43.2
+    }
+  ],
+  "value_curve": {
+    "break_even_MAE_C": 0.822,
+    "reactive_avoided_%": 84.09,
+    "best_forecast_MAE": 0.0,
+    "best_forecast_avoided_%": 89.39
+  },
+  "cost_loss": {
+    "ML_max_value": 0.635,
+    "persist_max_value": 0.67,
+    "oracle_max_value": 1.0
+  },
+  "alarm_budget_ML": {
+    "threshold": 33.316,
+    "alarms_per_week": 48.04,
+    "recall": 1.0,
+    "false_alarms": 248,
+    "detected": 132
+  },
+  "skill_map": {
+    "overall_skill": -2.7261,
+    "best_hour": 13,
+    "worst_hour": 9,
+    "ramp_up_skill": -2.4353,
+    "steady_skill": -2.9474,
+    "ramp_down_skill": -1.8617,
+    "positive_skill_fraction": 0.478
+  },
+  "p_wave": {
+    "peak_lag_min": -80,
+    "tau_min": 8,
+    "median_lead_min": 115,
+    "mean_lead_min": 142,
+    "n_events": 132,
+    "n_blind_zone": 12,
+    "blind_zone_%": 9.1
+  }
+}
