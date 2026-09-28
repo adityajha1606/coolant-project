@@ -5,8 +5,8 @@
     "MEDIUM",
     "HIGH"
   ],
-  "low_thresh": 29.37,
-  "high_thresh": 36.53,
+  "low_thresh": 30.0,
+  "high_thresh": 35.0,
   "feature_cols": [
     "compute_power",
     "accessory_power",
@@ -48,7 +48,7 @@
     "compute_power_roll3",
     "compute_power_roll6"
   ],
-  "test_accuracy": 0.8359681124172409,
-  "test_f1_macro": 0.5866866950826014,
-  "test_auc_macro": 0.8411841407015436
+  "test_accuracy": 0.80435076341035,
+  "test_f1_macro": 0.66564609948068,
+  "test_auc_macro": 0.8686899095989151
 }

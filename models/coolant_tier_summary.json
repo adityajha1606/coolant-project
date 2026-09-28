@@ -1,0 +1,24 @@
+{
+  "thresholds_degC": [
+    30.0,
+    35.0
+  ],
+  "feature_set": "no_calendar (36)",
+  "margin_degC": 1.7,
+  "target_recall (val-B)": 0.8,
+  "val-B recall": 0.8004484304932735,
+  "val-B precision": 0.27293577981651373,
+  "test accuracy": 0.7624645318200243,
+  "test balanced acc": 0.7773956298037658,
+  "test macro-F1": 0.644975500689927,
+  "test HIGH recall": 0.7671232876712328,
+  "test HIGH recall CI95": "[0.64, 0.85]",
+  "test HIGH precision": 0.17582417582417584,
+  "test HIGH->LOW": 0.07534246575342465,
+  "test HIGH AUC / AP": "0.856 / 0.484",
+  "HIGH episodes / detected": "132 / 66%",
+  "first-row detection": 0.48484848484848486,
+  "onset recall": 0.48484848484848486,
+  "forecast MAE vs persistence (degC)": "0.831 vs 0.822",
+  "persistence acc / bal-acc": "0.876 / 0.767"
+}

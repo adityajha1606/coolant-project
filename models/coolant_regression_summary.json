@@ -1,0 +1,18 @@
+{
+  "target": "avg_return_temp @ t+1 (10 min ahead)",
+  "split": "chronological 70/15/15",
+  "features_total": 40,
+  "features_used": 36,
+  "variant": "no_calendar",
+  "best_model": "persistence",
+  "best_MAE (\u00b0C)": 0.8217566255275149,
+  "best_RMSE (\u00b0C)": 1.4331860468457494,
+  "best_R\u00b2": 0.7260833867515766,
+  "best_MAPE (%)": 2.6834677968484977,
+  "persistence_MAE (\u00b0C)": 0.8217566255275149,
+  "persistence_R\u00b2": 0.7260833867515766,
+  "skill_vs_persistence (MAE)": "+0.00%",
+  "LGBM_dT_MAE (\u00b0C)": 0.8310498041944985,
+  "LGBM_dT_R\u00b2": 0.738906721795977,
+  "LGBM_best_iteration": 3
+}

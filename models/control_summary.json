@@ -1,0 +1,23 @@
+{
+  "simulation_window": "2023-11-10 \u2192 2023-12-31",
+  "steps": 7401,
+  "dt_minutes": 10,
+  "tau_minutes": 15,
+  "alpha": 0.4866,
+  "flow_envelope": "[0.9, 1.2]",
+  "max_step_change": 0.05,
+  "high_threshold_degC": 35.0,
+  "baseline_HIGH_events": 292,
+  "reactive_HIGH_events": 36,
+  "predictive_HIGH_events": 48,
+  "predictive_vs_baseline_%": "-83.6%",
+  "baseline_pump_energy": 7401.0,
+  "reactive_pump_energy": 9696.7,
+  "predictive_pump_energy": 9585.1,
+  "energy_overhead_%": "+29.5%",
+  "baseline_p95_T": 34.674,
+  "predictive_p95_T": 33.503,
+  "baseline_soft_penalty": 272.12,
+  "predictive_soft_penalty": 29.21,
+  "overload_reduction_%": "-89.3%"
+}
