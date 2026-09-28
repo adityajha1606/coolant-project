@@ -1,0 +1,43 @@
+{
+  "twin_fidelity": {
+    "open_loop_MAE": 1.347598995349782,
+    "open_loop_RMSE": 1.7419328687146074,
+    "open_loop_bias": -1.082371274515807,
+    "naive_baseline_MAE": 2.1615740445462754,
+    "best_alpha": 0.7,
+    "best_tau_min": 8.305835450825375
+  },
+  "predictability": {
+    "acf_T_lag1": 0.8628495005193223,
+    "acf_T_lag6": 0.6791724151456918,
+    "acf_T_lag144": 0.2705607505683616,
+    "acf_T_lag288": 0.1343614190800668,
+    "half_life_T_min": 210.0,
+    "half_life_dT_min": 10.0,
+    "memory_horizon_T": ">48h"
+  },
+  "pump_energy": {
+    "linear_overhead_reactive_%": 8.68179975678961,
+    "linear_overhead_predictive_%": 8.266585596541,
+    "cube_overhead_reactive_%": 31.018739197405715,
+    "cube_overhead_predictive_%": 29.51146087015265
+  },
+  "pareto": {
+    "best_margin_degC": 3.0,
+    "degree_min_reduction_%": 91.58341715598101,
+    "pump_overhead_%": 47.307983062010344
+  },
+  "degree_minutes": {
+    "baseline_above_35": 2721.1609917640035,
+    "reactive_above_35": 250.985700146026,
+    "predictive_above_35": 292.0699015818027,
+    "reactive_reduction_%": 90.77652145883057,
+    "predictive_reduction_%": 89.26671731419805
+  },
+  "purged_cv": {
+    "ridge_MAE": 1.2413291175905456,
+    "lightgbm_MAE": 1.0805351079685088,
+    "xgboost_MAE": 1.08446336335391,
+    "leakage_bias_degC": -0.3152956144928232
+  }
+}
