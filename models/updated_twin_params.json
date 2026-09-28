@@ -1,0 +1,8 @@
+{
+  "alpha_used": 0.7,
+  "alpha_assumed": 0.486582880967408,
+  "tau_min": 8.305835450825375,
+  "baseline_events": 132,
+  "reactive_events": 21,
+  "predictive_events": 30
+}
