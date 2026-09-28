@@ -1,0 +1,4 @@
+policy,steps,HIGH_events,time_in_HIGH_%,critical_steps,mean_T,p95_T,max_T,soft_penalty,pump_energy,pump_energy_per_step,flow_std,max_step_change
+Baseline,7401,292,3.945,111,31.103,34.674,38.42,272.12,7401.0,1.0,0.0,0.0
+Reactive,7401,36,0.486,10,30.141,33.403,37.509,25.1,9696.7,1.3102,0.0898,0.05
+Predictive,7401,48,0.649,12,30.201,33.503,37.509,29.21,9585.1,1.2951,0.0892,0.05
