@@ -1,0 +1,69 @@
+cff-version: 1.2.0
+message: "If you use this project or its code, please cite it using the metadata below."
+
+title: "Coolant: Predictive Machine Learning for HPC Thermal Management"
+abstract: >
+  A machine learning framework that forecasts coolant return temperature and
+  classifies thermal risk 10 minutes ahead using real telemetry from Frontier,
+  the exascale supercomputer at Oak Ridge National Laboratory. Inspired by
+  Jadhav & Liu (2026), IEEE ITherm Best Paper, this project extends that work
+  with a predictive forecasting and risk-classification layer for proactive
+  cooling control.
+
+type: software
+version: "1.0.0"
+date-released: "2026-09-28"
+
+authors:
+  - family-names: "Jha"
+    given-names: "Aditya"
+    affiliation: "SRM Institute of Science and Technology (SRM IST)"
+    orcid: "" # optional, add your ORCID if you have one
+
+repository-code: "https://github.com/adityajha1606/coolant-project"
+url: "https://github.com/adityajha1606/coolant-project"
+license: "CC-BY-NC-SA-4.0"
+license-url: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+
+keywords:
+  - machine learning
+  - data center cooling
+  - HPC
+  - thermal management
+  - exascale computing
+  - Frontier supercomputer
+  - PUE optimization
+  - time series forecasting
+  - classification
+  - predictive control
+  - digital twin
+
+references:
+  - type: conference-paper
+    title: "Machine Learning Guided Cooling System Optimization for Data Center"
+    authors:
+      - family-names: "Jadhav"
+        given-names: "Shrenik"
+      - family-names: "Liu"
+        given-names: "Zheng"
+    year: 2026
+    conference: "2026 25th IEEE Intersociety Conference on Thermal and Thermomechanical Phenomena in Electronic Systems (ITherm)"
+    organization: "IEEE"
+    notes: "arXiv:2601.02275. Prof. Avram Bar-Cohen Best Paper Award."
+
+  - type: article
+    title: "Frontier HPC and Facility Dataset"
+    authors:
+      - family-names: "Sun"
+        given-names: "Y."
+    journal: "Scientific Data"
+    volume: 11
+    issue: 1077
+    year: 2024
+
+  - type: dataset
+    title: "Frontier HPC & Facility Data"
+    publisher: "figshare"
+    year: 2024
+    doi: "10.6084/m9.figshare.24391240.v4"
+    url: "https://doi.org/10.6084/m9.figshare.24391240.v4"
