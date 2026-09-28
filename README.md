@@ -74,7 +74,7 @@
 
 Coolant is a machine learning framework that forecasts **coolant return temperature** and classifies **thermal risk** 10 minutes ahead. It is built on real operational telemetry from Frontier, the exascale supercomputer at Oak Ridge National Laboratory: 49,869 records at 10-minute resolution covering calendar year 2023. Two tasks are solved on the same data: a regression task (return temperature at t+1) and a three-tier classification task (LOW < 30 °C, MEDIUM 30–35 °C, HIGH > 35 °C at t+1).
 
-A cooling controller that reacts only to current temperatures has no lead time. A 10-minute forecast and a risk tier give a future controller something to act on before a thermal event, not after it. Coolant is the predictive layer for that use; it is not the controller. It is **inspired by** the IEEE ITherm 2026 Best Paper *"Machine Learning Guided Cooling System Optimization for Data Center"* (Jadhav & Liu) and does **not** reproduce it: the paper predicts facility power, Coolant predicts temperature and risk class. A substantial share of the work is data quality (missing timestamps, physics violations, interpolation), which is treated here as a first-class result rather than a preprocessing footnote.
+A cooling controller that reacts only to current temperatures has no lead time. A 10-minute forecast and a risk tier give a future controller something to act on before a thermal event, not after it. Coolant is the predictive layer for that use; it is not the controller. It is **inspired by** the IEEE ITherm 2026 Best Paper *"Machine Learning Guided Cooling System Optimization for Data Center"* (Jadhav & Liu) and does **not** reproduce it: the paper predicts facility power, Coolant predicts temperature and risk class.
 
 ---
 
@@ -99,17 +99,17 @@ Coolant is organized as a four-stage pipeline. Stages 1–2 are implemented in t
 flowchart LR
     A["1 · Ingest<br/>Frontier telemetry<br/>clean · reindex · engineer features"] --> B["2 · Predict<br/>t+1 return temperature (regression)<br/>t+1 risk tier (classification)"]
     B --> C["3 · Decide<br/>LOW / MEDIUM / HIGH<br/>risk signal"]
-    C -.-> D["4 · Simulate<br/>closed-loop evaluation<br/>(planned)"]
+    C -.-> D["4 · Simulate (planned)"]
     classDef planned stroke-dasharray: 5 5
     class D planned
 ```
 
 | Stage | Status | Where |
-|-------|--------|-------|
-| Ingest | Implemented | `src/data_loader.py`, `notebooks/01_eda.ipynb`, `notebooks/02_preprocessing.ipynb` |
-| Predict | Implemented | `notebooks/03b_regression.ipynb`, `notebooks/03a_classification.ipynb` |
-| Decide | Risk tiers only; no action policy | `notebooks/03a_classification.ipynb` |
-| Simulate | Planned | See [Future Work](#future-work) |
+| ------- | -------- | ------- |
+| **Ingest** | Implemented | `src/data_loader.py`, `01_eda.ipynb`, `02_preprocessing.ipynb` |
+| **Predict** | Implemented | `03b_regression.ipynb`, `03a_classification.ipynb` |
+| **Decide** | Risk tiers implemented; action policy not yet implemented | `03a_classification.ipynb` |
+| **Simulate** | Not implemented — see Future Work | — |
 
 ---
 
@@ -148,14 +148,12 @@ Tiers: **LOW** < 30 °C, **MEDIUM** 30–35 °C, **HIGH** > 35 °C.
 
 > **Same telemetry. Same horizon. Opposite winners.**
 
-Linear models win regression. Tree ensembles win classification. The target's structure, not the algorithm's popularity, decides which model class is optimal.
-
 | Task | Target structure | Winning family | Best model | Headline metric |
 |------|------------------|----------------|------------|-----------------|
 | Regression | Continuous, near-identity in its current value | Linear | Ridge | R² 0.6235 |
 | Classification | Discretized, non-linear class boundaries | Tree ensemble | RandomForest | Accuracy 0.8284, macro-F1 0.6902 |
 
-A tree ensemble approximates a smooth, identity-like mapping with piecewise-constant steps, which costs accuracy when a linear term does most of the work. Threshold-style class boundaries are the opposite case, and trees fit them naturally. For one-step-ahead forecasting of a persistent signal, a linear baseline is worth running before reaching for boosting. Here it was the best model.
+Linear models win regression and tree ensembles win classification: the target's structure, not the algorithm's popularity, decides the model class.
 
 ---
 
@@ -163,15 +161,18 @@ A tree ensemble approximates a smooth, identity-like mapping with piecewise-cons
 
 Coolant is inspired by **"Machine Learning Guided Cooling System Optimization for Data Center"** by Jadhav & Liu, winner of the Prof. Avram Bar-Cohen Best Paper Award at IEEE ITherm 2026. Coolant **extends the direction** with a complementary predictive forecasting and risk-classification layer meant for future real-time control. It does **not** reproduce the paper.
 
-| | Jadhav & Liu (ITherm 2026) | Coolant (this repository) |
-|---|---|---|
-| Data | Frontier telemetry | Frontier telemetry (2023) |
-| Target | Facility accessory power (MW) | Return temperature (°C) at t+1; risk tier at t+1 |
+| | Jadhav & Liu (ITherm 2026) | Coolant (this repo) |
+| --- | --- | --- |
+| Same dataset | Frontier telemetry | Frontier telemetry (2023) |
+| Different target | Facility accessory power (MW) | Return temperature (°C) at t+1; risk tier at t+1 |
 | Best model | LightGBM | Ridge (regression), RandomForest (classification) |
-| R² | 0.79 | 0.62 |
+| Fit | R² 0.79 | R² 0.62 |
 | Relative error | WAPE 4.0 % | MAPE 3.82 % |
 
-Both reach sub-5 % relative error on Frontier telemetry, but the targets and error metrics (WAPE vs. MAPE) differ, so a direct numerical comparison is not meaningful.
+> **Note on the comparison.** The relative-error numbers (WAPE vs. MAPE)
+> measure different targets on different scales. They are shown to
+> indicate that both projects achieve sub-5 % relative error, not to
+> claim a head-to-head ranking.
 
 ---
 
@@ -259,7 +260,7 @@ jupyter nbconvert --to notebook --execute --inplace \
 Run the notebooks in this order. `data/processed/` and `models/` are gitignored, so notebook 02 must run before 03a and 03b.
 
 | # | Notebook | Purpose | Writes to |
-|---|----------|---------|-----------|
+| --- | ---------- | --------- | ----------- |
 | 1 | `01_eda.ipynb` | Exploratory data analysis | `figures/eda/` |
 | 2 | `02_preprocessing.ipynb` | Cleaning, feature engineering, scaling | `data/processed/`, `figures/preprocessing/` |
 | 3 | `03a_classification.ipynb` | Risk tier classifier | `models/`, `figures/classification/` |
@@ -271,7 +272,7 @@ Run the notebooks in this order. `data/processed/` and `models/` are gitignored,
 ## Dataset
 
 | | |
-|---|---|
+| --- | --- |
 | **Name** | Frontier HPC & Facility dataset |
 | **Source** | Oak Ridge National Laboratory, Frontier exascale supercomputer |
 | **DOI** | [10.6084/m9.figshare.24391240.v4](https://doi.org/10.6084/m9.figshare.24391240.v4) |
@@ -293,7 +294,7 @@ The complete 18-column data dictionary, units, and provenance notes live in [`da
 ### Data quality
 
 | Check | Finding | Action |
-|-------|---------|--------|
+| ------- | --------- | -------- |
 | Missing timestamps | 2,691 (5 %) | Reindexed to a regular 10-minute grid and interpolated |
 | Physics violations (return ≤ supply) | 68 | Flagged and corrected |
 | Missing `avg_return_temp` | 122 | Interpolated |
@@ -305,18 +306,16 @@ The complete 18-column data dictionary, units, and provenance notes live in [`da
 
 ## Figures
 
-<!-- Filenames follow the NN_descriptive_name.png convention; adjust to match figures/ if any differ. -->
-
 <table>
   <tr>
     <td width="33%" valign="top"><img src="figures/eda/03_pue_full_year.png" alt="PUE over the full 2023 record"><br><sub><b>PUE, full year.</b> Facility efficiency across the 2023 record.</sub></td>
-    <td width="33%" valign="top"><img src="figures/preprocessing/02_missing_timestamps.png" alt="Missing timestamps"><br><sub><b>Missing timestamps.</b> Gaps in the 10-minute timeline before reindexing.</sub></td>
-    <td width="33%" valign="top"><img src="figures/preprocessing/05_physics_violations.png" alt="Physics violations"><br><sub><b>Physics violations.</b> Records where return temperature ≤ supply temperature.</sub></td>
+    <td width="33%" valign="top"><img src="figures/preprocessing/01_missing_map.png" alt="Missing timestamps"><br><sub><b>Missing timestamps.</b> Gaps in the 10-minute timeline before reindexing.</sub></td>
+    <td width="33%" valign="top"><img src="figures/preprocessing/04_return_vs_supply_before.png" alt="Physics violations"><br><sub><b>Physics violations.</b> Records where return temperature ≤ supply temperature.</sub></td>
   </tr>
   <tr>
-    <td width="33%" valign="top"><img src="figures/regression/03_predicted_vs_actual.png" alt="Ridge predicted vs. actual return temperature"><br><sub><b>Regression.</b> Ridge predicted vs. actual return temperature at t+1.</sub></td>
-    <td width="33%" valign="top"><img src="figures/classification/05_confusion_matrix_random_forest.png" alt="RandomForest confusion matrix"><br><sub><b>Classification.</b> RandomForest confusion matrix over LOW / MEDIUM / HIGH.</sub></td>
-    <td width="33%" valign="top"><img src="figures/comparison/01_cross_task_comparison.png" alt="Cross-task model comparison"><br><sub><b>Comparison.</b> Linear vs. tree families across both tasks.</sub></td>
+    <td width="33%" valign="top"><img src="figures/regression/04_pred_vs_actual.png" alt="Ridge predicted vs. actual return temperature"><br><sub><b>Regression.</b> Ridge predicted vs. actual return temperature at t+1.</sub></td>
+    <td width="33%" valign="top"><img src="figures/classification/05_confusion_matrices.png" alt="RandomForest confusion matrix"><br><sub><b>Classification.</b> RandomForest confusion matrix over LOW / MEDIUM / HIGH.</sub></td>
+    <td width="33%" valign="top"><img src="figures/comparison/04_side_by_side.png" alt="Cross-task model comparison"><br><sub><b>Comparison.</b> Linear vs. tree families across both tasks.</sub></td>
   </tr>
 </table>
 
@@ -326,8 +325,6 @@ The full set is organized by stage under [`figures/`](figures/): `eda/`, `prepro
 
 ## Methodology
 
-<!-- TODO: state the split scheme (chronological vs. random) and ratios once confirmed in notebook 02. -->
-
 1. **Loading.** `src/data_loader.py` handles column renaming, dtype fixes, and robust loading of the raw Excel file.
 2. **Cleaning.** The timeline is reindexed to a regular 10-minute grid (2,691 missing timestamps) and gaps are interpolated. Physics violations (68 records with return ≤ supply) are flagged and corrected. Missing `avg_return_temp` values (122) are interpolated.
 3. **Feature engineering.** The 18 raw columns are expanded to 41 engineered, windowed features.
@@ -336,17 +333,12 @@ The full set is organized by stage under [`figures/`](figures/): `eda/`, `prepro
 6. **Models.**
    - Regression: LinearRegression, Ridge, RandomForest, XGBoost, LightGBM.
    - Classification: LogisticRegression, RandomForest, XGBoost.
-7. **Metrics.**
-   - Regression: MAE, RMSE, R², MAPE.
-   - Classification: accuracy, macro-F1, macro-AUC.
-8. **Reporting.** Every trained model is reported, and `notebooks/04_comparison.ipynb` compares the two tasks side by side.
 
 ---
 
 ## Limitations
 
-- **Not a controller.** Coolant forecasts and classifies. It does not optimize cooling setpoints, close a control loop, or run in real time; the Decide policy and Simulate stages are not implemented.
-- **Not a reproduction.** It does not predict facility power and is not a re-implementation of Jadhav & Liu (2026). Numbers from the two projects are not comparable.
+- **Not a controller, not a reproduction.** Coolant forecasts and classifies. It does not optimize cooling setpoints, close a control loop, or run in real time; the Decide policy and Simulate stages are not implemented. It also does not predict facility power and is not a re-implementation of Jadhav & Liu (2026), so numbers from the two projects are not comparable.
 - **One system, one year.** All results come from Frontier telemetry for 2023. Generalization to other facilities or other years is untested.
 - **One horizon.** Only the 10-minute-ahead (t+1) target is evaluated.
 - **Moderate regression fit.** Ridge reaches R² 0.6235, and the tree ensembles reach only 0.0244–0.0818. The near-linear structure of the target is what makes the linear models win; it does not make the forecast easy.
@@ -374,7 +366,7 @@ The full set is organized by stage under [`figures/`](figures/): `eda/`, `prepro
 ## Tech Stack
 
 | Area | Tools |
-|------|-------|
+| ------ | ------- |
 | Language | Python 3.10 |
 | Data | pandas, numpy, pyarrow (parquet I/O) |
 | Modeling | scikit-learn, XGBoost, LightGBM |
