@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>Coolant</h1>
+<h1>COOLANT</h1>
 
 <p><em>Predictive ML for HPC thermal management — forecast cooling demand 10 minutes before it happens.</em></p>
 
