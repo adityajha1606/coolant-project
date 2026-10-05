@@ -1,0 +1,50 @@
+{
+  "project": "Coolant \u2014 Predictive ML for HPC Thermal Management",
+  "version": "1.0.0",
+  "date": "2026-09-28",
+  "git": {
+    "commit": "d9a86688598a857e0c5db3b2c48a94600c5840ad",
+    "branch": "main"
+  },
+  "environment": {
+    "python": "3.10.12",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "lightgbm": "4.7.0",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.35"
+  },
+  "data_hashes_sha256": {
+    "train.parquet": "4d19018afa8dff30c75b2b96515a13247d6ec4ad81a60181541272adfbbba2e9",
+    "val.parquet": "260386fb68701de1c5f2ef4c7fce8dd360269ee1e9ab2359f5851cc0c39d8379",
+    "test.parquet": "c0535ba4e87a021929099b91485b9cbd8879beda7116d2fdc9c8e32eb2332d50"
+  },
+  "model_hash_sha256": "86e1be6fd44e788bc1c99307fbb9e6e3c2e8f3af4d39dcd2b5853cafd7a9962d",
+  "thresholds": {
+    "low_degC": 30.0,
+    "high_degC": 35.0,
+    "margin_degC": 1.7
+  },
+  "twin_params": {
+    "alpha": 0.7,
+    "tau_min": 8.305835450825375,
+    "cp_J_kgK": 4000.0,
+    "gpm_to_kgs": 0.0631
+  },
+  "test_set": {
+    "n_rows": 7402,
+    "start": "2023-11-10 00:20:00",
+    "end": "2023-12-31 23:50:00"
+  },
+  "headline_metrics": {
+    "regression_MAE_C": 0.8310498041944985,
+    "prediction_lead_min": 115,
+    "degree_min_reduction_pct": 90.6250027931628,
+    "events_reduction_pct": 77.91666666666664
+  },
+  "limitations": [
+    "One site (Frontier), one year (2023).",
+    "Offline counterfactual evaluation. No live control-loop deployment.",
+    "Twin validated to 1.35 \u00b0C MAE. Downstream metrics carry this uncertainty.",
+    "Feature set includes raw telemetry; real deployment requires sensor preprocessing."
+  ]
+}
